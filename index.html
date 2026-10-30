@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#13171f">
+<title>Piloto privado | Validación de producto · Ruta Seller</title>
+<link rel="icon" href="./logo-ruta-seller.png" type="image/png">
+<link rel="stylesheet" href="./estilos.css">
+</head>
+<body>
+<header class="top"><div class="wrap top-inner">
+ <a class="brand" href="./index.html"><img src="./logo-ruta-seller.png" alt="Logo Ruta Seller"><div><strong>Ruta Seller</strong><span>Laboratorio · versión de pruebas</span></div></a>
+ <div class="top-actions"><span id="user-email" class="small"></span><button class="button light tiny hidden" id="logout">Cerrar sesión</button></div>
+</div></header>
+
+<section class="hero"><div class="wrap">
+ <span class="eyebrow">Piloto seguro · No reemplaza el sitio oficial</span>
+ <h1>Validación de producto</h1>
+ <p>Investiga hasta cinco ideas, conserva tus avances en tu cuenta y entrega tu tarea cuando esté lista para revisión.</p>
+</div></section>
+
+<main class="wrap page hidden" id="setup-screen">
+ <div class="panel"><h2>Falta conectar Supabase</h2><p>El piloto está preparado, pero todavía necesita la URL y la clave publicable del proyecto de pruebas. Consulta <strong>GUIA_PASO_A_PASO.md</strong> dentro del ZIP.</p><p class="muted">Ninguna cuenta ni foto se almacena hasta completar esta configuración.</p></div>
+</main>
+
+<main class="wrap page hidden" id="auth-screen">
+ <div class="auth"><div class="panel">
+ <div class="switch"><button type="button" id="show-login" class="active">Iniciar sesión</button><button type="button" id="show-signup">Crear cuenta</button></div>
+ <form id="auth-form" class="form-stack">
+  <label class="field hidden" id="name-field"><span class="label">Nombre del estudiante</span><input id="auth-name" type="text" maxlength="100" autocomplete="name" placeholder="Ej. Ana Martínez"></label>
+  <label class="field"><span class="label">Correo electrónico</span><input id="auth-email" type="email" required autocomplete="email" placeholder="tu@correo.com"></label>
+  <label class="field"><span class="label">Contraseña</span><input id="auth-password" type="password" minlength="8" required autocomplete="current-password" placeholder="Mínimo 8 caracteres"></label>
+  <button class="button orange" type="submit" id="auth-submit">Entrar a mi espacio</button>
+ </form>
+ <p class="status" aria-live="polite" id="auth-msg"></p>
+ <p class="small muted">Los registros de prueba solo deben realizarse con personas autorizadas. No uses contraseñas de otros servicios.</p>
+ </div></div>
+</main>
+
+<main class="wrap page hidden" id="student-screen">
+ <div id="global-notice" role="status" aria-live="polite" class="notice hidden"></div>
+ <div class="layout">
+  <aside class="side"><div class="panel"><p class="eyebrow">Mis 5 productos</p><div id="slots" class="slotlist"></div>
+   <hr class="sectionline"><p class="small muted">Selecciona cada producto para completar la investigación. Las fotos se guardan en tu espacio privado.</p>
+   <p class="small"><strong>Estado:</strong> <span id="save-status" aria-live="polite">Sin cambios</span></p>
+  </div></aside>
+  <div>
+   <section class="panel">
+    <div class="topline"><div><span class="eyebrow">Tarea 01 · Investigación</span><h2 id="product-heading">Producto 1</h2></div><div class="score"><b id="total-score">—</b><span>de 100 puntos<br><span id="score-detail">Sin evaluar</span></span></div></div>
+    <div class="progress" aria-hidden="true"><span id="progress-fill"></span></div>
+    <hr class="sectionline">
+    <div class="grid2">
+      <label class="field"><span class="label">Nombre del producto</span><input data-field="name" id="product-name" type="text" maxlength="100" placeholder="Ej. Soporte para ovillos"></label>
+      <label class="field"><span class="label">Keyword de Black Box</span><input data-field="blackbox" type="text" maxlength="150" placeholder="Palabra clave general"></label>
+      <label class="field"><span class="label">Keyword específica</span><input data-field="specific" type="text" maxlength="150" placeholder="Keyword principal"></label>
+    </div>
+    <div class="photo" style="margin-top:16px">
+      <div class="photo-box" id="photo-box">Sin fotografía</div>
+      <div class="photo-info"><strong>Fotografía del producto</strong><p class="small muted">Se convierte a WebP y se comprime antes de guardar. Máximo 1 fotografía por producto.</p><input type="file" accept="image/*" id="photo-file"><p class="status" id="photo-status" aria-live="polite"></p></div>
+    </div>
+    <hr class="sectionline">
+    <div class="topline"><h3>7 criterios de evaluación</h3><span class="small muted">Puntaje basado en tu plantilla 2026</span></div>
+    <div id="criteria" class="criteria"></div>
+    <div class="actions" style="margin-top:20px">
+      <button type="button" class="button primary" id="save-now">Guardar ahora</button>
+      <button type="button" class="button light" id="next-product">Siguiente producto →</button>
+      <button type="button" class="button danger" id="clear-product">Limpiar producto</button>
+    </div>
+   </section>
+   <section class="panel">
+    <div class="topline"><div><span class="eyebrow">Seguimiento docente</span><h2>Entregar tarea al profesor</h2></div><span class="badge" id="task-badge">Borrador</span></div>
+    <p class="muted">Puedes guardar y corregir tus datos antes de entregar. Al entregar, los productos quedarán bloqueados hasta que el profesor los revise.</p>
+    <div id="teacher-message" class="hidden"><h3>Comentarios del profesor</h3><div class="feedback" id="teacher-feedback"></div></div>
+    <div id="overview" class="table-wrap"></div>
+    <div class="actions" style="margin-top:18px"><button class="button orange" id="submit-task" type="button">Entregar tarea para revisión</button><span class="small muted" id="submit-hint">Al menos 1 producto completamente evaluado.</span></div>
+   </section>
+  </div>
+ </div>
+</main>
+
+<footer class="foot wrap">Ruta Seller · Piloto privado de tareas · Las dos calculadoras oficiales no se modifican.</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./supabase-config.js"></script>
+<script src="./reglas.js"></script>
+<script src="./alumno.js"></script>
+</body></html>
