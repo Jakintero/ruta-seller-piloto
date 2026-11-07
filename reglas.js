@@ -38,4 +38,4 @@ window.RUTA_STATS=p=>{
    completed,used,valid:completed===7&&String(p.name??'').trim()!=='',
    unresolved:c.some(x=>x.kind==='undefined'||x.kind==='invalid')};
 };
-window.RUTA_STATE_LABEL={draft:'Borrador',submitted:'Por revisar',changes_requested:'En corrección',approved:'Aprobada'};
+window.RUTA_STATE_LABEL={draft:'Borrador',submitted:'Por revisar',approved:'Aprobada'};

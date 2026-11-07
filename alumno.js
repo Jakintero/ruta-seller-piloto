@@ -9,16 +9,39 @@ const db=window.supabase.createClient(window.RUTA_SUPABASE_URL,window.RUTA_SUPAB
 let user=null,profile=null,task={status:'draft',teacher_feedback:''},current=0,busyPhoto=false;
 let products=Array.from({length:5},()=>({...window.RUTA_BLANK(),image_path:null}));
 const images=Array(5).fill(null),timers=Array(5).fill(null),chains=Array.from({length:5},()=>Promise.resolve());
+const dirty=Array(5).fill(false),versions=Array(5).fill(0);
+let beginEditPromise=null;
 let saveFailed=false,formMode='login';
 function notice(message,type=''){const el=$('global-notice');el.textContent=message;el.className='notice '+type;el.classList.remove('hidden');}
 function status(text){$('save-status').textContent=text;}
-function canEdit(){return profile?.access_status==='approved' && ['draft','changes_requested'].includes(task.status);}
+function canEdit(){return profile?.access_status==='approved' && ['draft','approved'].includes(task.status);}
+function markDirty(slot){dirty[slot]=true;versions[slot]++;}
+/* El servidor convierte approved -> draft ANTES del primer guardado.
+   submitted nunca se desbloquea con esta llamada. */
+async function ensureDraft(){
+ if(!canEdit())throw Error('Esta tarea está entregada y pendiente de revisión.');
+ if(task.status==='draft')return;
+ if(!beginEditPromise){
+  beginEditPromise=(async()=>{
+   const {data,error}=await db.rpc('ruta_begin_edit');
+   if(error)throw error;
+   if(data!=='draft')throw Error('No se pudo abrir el borrador.');
+   task.status='draft';
+   renderOverview(); // Actualiza el estado sin borrar el texto que el alumno está escribiendo.
+  })().finally(()=>{beginEditPromise=null;});
+ }
+ await beginEditPromise;
+}
 function productData(slot){return Object.fromEntries(window.RUTA_FIELDS.map(k=>[k,String(products[slot][k]??'').slice(0,500)]));}
 function qSave(slot){
  const job=chains[slot].catch(()=>{}).then(async()=>{
+  if(!dirty[slot])return;
+  await ensureDraft();
+  const version=versions[slot];
   const payload={owner_id:user.id,slot:slot+1,data:productData(slot),image_path:products[slot].image_path,updated_at:new Date().toISOString()};
   const {error}=await db.from('ruta_products').upsert(payload,{onConflict:'owner_id,slot'});
   if(error)throw error;
+  if(version===versions[slot])dirty[slot]=false;
  });
  chains[slot]=job;
  job.then(()=>{if(!saveFailed)status('Guardado en la nube ✓');},e=>{saveFailed=true;status('Error al guardar');notice('No se pudo guardar: '+e.message+'. Comprueba tu conexión e inténtalo de nuevo.','error');});
@@ -33,8 +56,8 @@ async function flush(){
  if(busyPhoto)throw Error('Espera a que termine de subirse la fotografía.');
  const jobs=[];
  for(let i=0;i<5;i++){
-  if(timers[i]){clearTimeout(timers[i]);timers[i]=null;jobs.push(qSave(i));}
-  else jobs.push(chains[i]);
+  if(timers[i]){clearTimeout(timers[i]);timers[i]=null;}
+  jobs.push(dirty[i]?qSave(i):chains[i]);
  }
  await Promise.all(jobs);
  if(saveFailed)throw Error('Hay errores de guardado. Pulsa «Guardar ahora» para reintentar.');
@@ -136,9 +159,10 @@ function renderOverview(){
  const count=products.filter(p=>window.RUTA_STATS(p).valid).length;
  $('submit-hint').textContent=count+' de 5 productos completos. Puedes entregar desde 1 producto completo; los restantes son opcionales.';
  const badge=$('task-badge');badge.textContent=window.RUTA_STATE_LABEL[task.status]||task.status;
- badge.className='badge '+(task.status==='submitted'?'review':task.status==='approved'?'good':task.status==='changes_requested'?'rework':'');
- $('submit-task').disabled=!canEdit()||count===0;
- $('submit-task').textContent=task.status==='changes_requested'?'Volver a entregar tarea':'Entregar tarea para revisión';
+ badge.className='badge '+(task.status==='submitted'?'review':task.status==='approved'?'good':'');
+ $('submit-task').disabled=!canEdit()||task.status==='approved'||count===0;
+ $('submit-task').textContent='Entregar tarea para revisión';
+ if(task.status==='approved')$('submit-hint').textContent='Tarea aprobada. Modifica algún producto para iniciar un nuevo borrador.';
  if(task.teacher_feedback){
   $('teacher-message').classList.remove('hidden');$('teacher-feedback').textContent=task.teacher_feedback;
  }else $('teacher-message').classList.add('hidden');
@@ -158,12 +182,14 @@ function renderEditor(){
  $('photo-file').disabled=!canEdit();
  $('save-now').disabled=!canEdit();$('clear-product').disabled=!canEdit();
  $('submit-task').disabled=!canEdit();
- $('photo-status').textContent=canEdit()?'':'La tarea está bloqueada mientras se revisa.';
+ $('photo-status').textContent=canEdit()?'':'La tarea está entregada y bloqueada hasta la revisión del profesor.';
  renderScore();renderOverview();renderPhoto();
 }
 function onInput(e){
  const field=e.target.dataset.field;if(!field||!window.RUTA_FIELDS.includes(field))return;
+ if(!canEdit())return;
  products[current][field]=e.target.value;
+ markDirty(current);
  scheduleSave(current);
  renderTabs();renderScore();renderOverview();
 }
@@ -171,16 +197,17 @@ $('student-screen').addEventListener('input',onInput);
 $('student-screen').addEventListener('change',e=>{if(e.target.tagName==='SELECT'&&e.target.dataset.field)onInput(e);});
 $('next-product').onclick=()=>{current=(current+1)%5;renderEditor();};
 $('save-now').onclick=async()=>{
- try{saveFailed=false;status('Guardando…');if(!timers[current])await qSave(current);await flush();status('Guardado en la nube ✓');notice('Los cambios quedaron guardados en tu cuenta.','ok');}
+ try{saveFailed=false;status('Guardando…');await flush();status('Guardado en la nube ✓');notice('Los cambios quedaron guardados en tu cuenta.','ok');}
  catch(e){notice('No se guardaron todos los cambios: '+e.message,'error');}
 };
 $('clear-product').onclick=async()=>{
  if(!canEdit()||!confirm('¿Vaciar los datos del producto '+(current+1)+'?'))return;
  const slot=current,oldPath=products[slot].image_path;
  try{
+  await ensureDraft();
   if(oldPath){const {error}=await db.storage.from('ruta-piloto-fotos').remove([oldPath]);if(error)throw error;}
   products[slot]={...window.RUTA_BLANK(),image_path:null};
-  images[slot]=null;saveFailed=false;
+  markDirty(slot);images[slot]=null;saveFailed=false;
   clearTimeout(timers[slot]);timers[slot]=null;
   await qSave(slot);renderEditor();notice('Producto limpiado.','ok');
  }catch(e){notice('No se pudo limpiar el producto: '+e.message,'error');}
@@ -227,10 +254,12 @@ $('photo-file').onchange=async e=>{
  try{
   const blob=await compressedWebp(file);
   await chains[slot].catch(()=>{});
+  await ensureDraft();
   const path=user.id+'/'+(slot+1)+'.webp';
   const {error}=await db.storage.from('ruta-piloto-fotos').upload(path,blob,{contentType:'image/webp',upsert:true,cacheControl:'60'});
   if(error)throw error;
   products[slot].image_path=path;
+  markDirty(slot);
   await qSave(slot);
   images[slot]=URL.createObjectURL(blob);
   if(slot===current)renderPhoto();
@@ -245,6 +274,7 @@ async function loadData(){
  ]);
  if(e1||e2)throw e1||e2;
  task=t;
+ dirty.fill(false);versions.fill(0);
  products=Array.from({length:5},()=>({...window.RUTA_BLANK(),image_path:null}));
  images.fill(null);
  for(const row of rows||[]){
@@ -256,9 +286,9 @@ async function loadData(){
   }
  }
  renderEditor();
- if(!canEdit())notice(task.status==='submitted'?'Tu tarea está entregada y pendiente de revisión.':
-   task.status==='approved'?'¡Tu tarea fue aprobada!':'Estado de la tarea: '+task.status,'ok');
- else if(task.status==='changes_requested')notice('Tu profesor pidió correcciones. Revisa sus comentarios, actualiza y vuelve a entregar.');
+ if(task.status==='submitted')notice('Tu tarea está entregada y pendiente de revisión. Los productos están bloqueados temporalmente.','ok');
+ else if(task.status==='approved')notice('¡Tu tarea fue aprobada! Puedes continuar investigando. Al modificar un producto pasará a borrador.','ok');
+ else if(task.status==='draft'&&task.teacher_feedback)notice('Tu profesor dejó comentarios. Revísalos, corrige tus productos y entrega la tarea cuando esté lista.','ok');
 }
 async function bootstrap(){
  try{

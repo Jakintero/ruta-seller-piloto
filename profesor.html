@@ -9,7 +9,7 @@
  <a class="brand" href="./index.html"><img src="./logo-ruta-seller.png" alt="Ruta Seller"><div><strong>Ruta Seller</strong><span>Panel docente · administración</span></div></a>
  <div class="top-actions"><a href="./index.html" class="button light tiny">Herramientas</a><span id="user-email" class="small"></span><button class="button light tiny hidden" id="logout">Cerrar sesión</button></div>
 </div></header>
-<section class="hero"><div class="wrap"><span class="eyebrow">Acceso restringido al profesor</span><h1>Revisión de tareas</h1><p>Consulta el avance, abre los cinco productos de cada estudiante y decide si apruebas o solicitas una corrección.</p></div></section>
+<section class="hero"><div class="wrap"><span class="eyebrow">Acceso restringido al profesor</span><h1>Revisión de tareas</h1><p>Consulta el avance, abre los cinco productos de cada estudiante y aprueba una tarea o devuelve comentarios para que el estudiante continúe.</p></div></section>
 <main class="wrap page">
  <div id="loading" class="notice">Comprobando los permisos del profesor…</div>
  <div id="not-allowed" class="panel hidden"><h2>Acceso no autorizado</h2><p>Esta sección está disponible únicamente para cuentas con el rol de profesor. Si acabas de crear tu cuenta, el administrador debe activarla desde Supabase.</p><a href="./index.html" class="button primary">Volver al inicio</a></div>
@@ -36,7 +36,7 @@
    <div id="access-list"></div>
  </section>
  <section class="panel" style="margin-top:16px">
-   <div class="topline"><div><span class="eyebrow">Trabajos entregados y borradores</span><h2>Actividad de estudiantes</h2></div><div class="actions"><select id="status-filter" aria-label="Filtrar por estado" style="width:auto"><option value="all">Todos</option><option value="submitted">Por revisar</option><option value="changes_requested">Correcciones</option><option value="draft">En progreso</option><option value="approved">Aprobados</option></select><button class="button light tiny" id="reload-data">Actualizar</button></div></div>
+   <div class="topline"><div><span class="eyebrow">Trabajos entregados y borradores</span><h2>Actividad de estudiantes</h2></div><div class="actions"><select id="status-filter" aria-label="Filtrar por estado" style="width:auto"><option value="all">Todos</option><option value="submitted">Por revisar</option><option value="draft">En progreso</option><option value="approved">Aprobados</option></select><button class="button light tiny" id="reload-data">Actualizar</button></div></div>
    <div class="small muted" id="last-sync"></div>
    <div id="task-list"></div>
  </section>

@@ -11,7 +11,7 @@ const db=window.supabase.createClient(window.RUTA_SUPABASE_URL,window.RUTA_SUPAB
 let students=[],tasks=[],products=[];
 const escape=window.RUTA_ESC;
 $('logout').onclick=async()=>{await db.auth.signOut();location.href='./index.html';};
-function statusClass(s){return s==='submitted'?'review':s==='approved'?'good':s==='changes_requested'?'rework':'lock';}
+function statusClass(s){return s==='submitted'?'review':s==='approved'?'good':'lock';}
 function fmt(dt){return dt?new Date(dt).toLocaleString('es-CO',{dateStyle:'medium',timeStyle:'short'}):'—';}
 async function load(){
  $('last-sync').textContent='Actualizando datos…';
@@ -82,18 +82,18 @@ function render(){
    area.maxLength=2000;area.setAttribute('aria-label','Comentario de revisión');
    const actions=document.createElement('div');actions.className='actions';actions.style.marginTop='9px';
    const approve=document.createElement('button');approve.type='button';approve.className='button primary tiny';approve.textContent='Aprobar tarea';
-   const request=document.createElement('button');request.type='button';request.className='button orange tiny';request.textContent='Solicitar correcciones';
+   const comment=document.createElement('button');comment.type='button';comment.className='button orange tiny';comment.textContent='Guardar comentarios';
    const result=document.createElement('span');result.className='small muted';result.setAttribute('aria-live','polite');
    const execute=async decision=>{
-    if(decision==='changes_requested'&&!area.value.trim()){result.textContent='Escribe qué debe corregir.';return;}
-    if(!confirm(decision==='approved'?'¿Aprobar esta tarea?':'¿Devolver esta tarea al estudiante para corrección?'))return;
-    approve.disabled=true;request.disabled=true;result.textContent='Guardando revisión…';
+    if(decision==='draft'&&!area.value.trim()){result.textContent='Escribe tus observaciones antes de devolver la tarea.';return;}
+    if(!confirm(decision==='approved'?'¿Aprobar esta tarea y permitir que el estudiante siga investigando?':'¿Guardar tus comentarios y devolver la tarea a borrador para que el alumno la corrija?'))return;
+    approve.disabled=true;comment.disabled=true;result.textContent='Guardando revisión…';
     const {error}=await db.rpc('ruta_review_task',{p_student:item.id,p_decision:decision,p_feedback:area.value.trim()});
-    if(error){result.textContent='Error: '+error.message;approve.disabled=false;request.disabled=false;return;}
+    if(error){result.textContent='Error: '+error.message;approve.disabled=false;comment.disabled=false;return;}
     try{await load();}catch(ex){result.textContent='Revisión guardada, pero falló la actualización: '+ex.message;}
    };
-   approve.onclick=()=>execute('approved');request.onclick=()=>execute('changes_requested');
-   actions.append(approve,request,result);
+   approve.onclick=()=>execute('approved');comment.onclick=()=>execute('draft');
+   actions.append(approve,comment,result);
    detail.append(area,actions);
   }
   card.append(detail);root.append(card);
