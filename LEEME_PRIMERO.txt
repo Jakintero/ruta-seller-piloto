@@ -1,23 +1,31 @@
-RUTA SELLER · PILOTO SEGURO (NO TOCA LA WEB OFICIAL)
+RUTA SELLER — ACCESO PRIMERO (PILOTO)
 
-ESTO ES UNA VERSIÓN DE PRUEBAS. Los registros reales NO funcionarán
-hasta conectar Supabase.
+OBJETIVO:
+Al abrir la página, solo aparece Iniciar sesión / Crear cuenta.
+Un estudiante aprobado ve 3 herramientas.
+Un estudiante pendiente, rechazado o suspendido ve su estado, pero NO las herramientas.
+El profesor entra a profesor.html automáticamente después de iniciar sesión.
 
-PRIMER PASO (sin riesgos):
-  1. Crea un repositorio NUEVO llamado ruta-seller-piloto
-  2. Sube los archivos de este ZIP, sin reemplazar el repositorio oficial.
-  3. Activa GitHub Pages en main / (root).
-  4. Entra a tu nuevo sitio. Verás la indicación «Falta conectar Supabase».
+CONTENIDO:
+- index.html: entrada unificada, formularios y tarjetas ocultas hasta la aprobación
+- rentabilidad.html: misma calculadora con barrera visual de acceso
+- publicidad.html: mismo simulador con barrera visual de acceso
+- acceso-gate.js: comprueba usuario y aprobación antes de mostrar ambas calculadoras
 
-PARA ACTIVAR LAS CUENTAS:
-  5. Crea un proyecto NUEVO en Supabase.
-  6. Ejecuta supabase-setup.sql en SQL Editor.
-  7. Copia URL + clave PUBLICABLE a supabase-config.js.
-  8. Configura Authentication (URL y correo).
-  9. Crea tu cuenta, y asígnale el rol de profesor con el UPDATE del SQL.
- 10. Prueba con 2 alumnos antes de enviar el enlace a la clase.
+INSTALACIÓN EN: ruta-seller-piloto.
+Subir estos 4 archivos a la raíz. Respaldar antes los HTML actuales.
+No reemplazar reglas.js, alumno.js, profesor.js, validacion.html,
+profesor.html, estilos.css ni ninguna foto/logo de Ruta Seller.
 
-CONSULTA: GUIA_PASO_A_PASO.md (instrucciones completas).
-
-No publiques contraseñas, service_role ni claves secretas en GitHub.
-Tampoco subas esto a ruta-seller-herramientas: la web oficial sigue intacta.
+ATENCIÓN:
+- El archivo supabase-config.js NO está incluido; debe existir en el repositorio
+  con URL del proyecto y clave PUBLICABLE (nunca una clave secret).
+- La tabla ruta_profiles debe contener role y access_status.
+- access_status='approved' concede acceso a alumnos. El profesor role='teacher'
+  entra directamente a su panel.
+- Cada registro nuevo debe empezar como 'pending' mediante la migración SQL ya preparada.
+- GitHub Pages publica archivos estáticos; ocultar/reenviar HTML con JavaScript
+  NO protege los archivos fuente ni impide a un usuario técnico acceder a ellos.
+  Supabase RLS sí debe proteger datos y fotos privados.
+- NO APROBAR ACCESOS ni activar para todos antes de probar el flujo real.
+- No altera fórmulas ni operaciones de calculadoras.

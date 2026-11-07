@@ -16,17 +16,18 @@ function fmt(dt){return dt?new Date(dt).toLocaleString('es-CO',{dateStyle:'mediu
 async function load(){
  $('last-sync').textContent='Actualizando datos…';
  const [{data:a,error:e1},{data:b,error:e2},{data:c,error:e3}]=await Promise.all([
-  db.from('ruta_profiles').select('id,email,full_name,role,created_at').eq('role','student').order('created_at',{ascending:false}),
+  db.from('ruta_profiles').select('id,email,full_name,role,created_at,access_status').eq('role','student').order('created_at',{ascending:false}),
   db.from('ruta_tasks').select('owner_id,status,teacher_feedback,submitted_at,updated_at,reviewed_at'),
   db.from('ruta_products').select('owner_id,slot,data,image_path')
  ]);
  if(e1||e2||e3)throw e1||e2||e3;
  students=a||[];tasks=b||[];products=c||[];
  $('total-students').textContent=students.length;
+ $('pending-access').textContent=students.filter(s=>(s.access_status||'pending')==='pending').length;
  $('pending-tasks').textContent=tasks.filter(x=>x.status==='submitted').length;
  $('approved-tasks').textContent=tasks.filter(x=>x.status==='approved').length;
  $('last-sync').textContent='Actualizado: '+fmt(new Date().toISOString());
- render();
+ render();renderAccess();
 }
 function render(){
  const filter=$('status-filter').value,root=$('task-list');root.textContent='';
@@ -98,13 +99,71 @@ function render(){
   card.append(detail);root.append(card);
  });
 }
+
+const accessText={pending:'Pendiente',approved:'Aprobado',rejected:'Rechazado',suspended:'Suspendido'};
+function renderAccess(){
+ const root=$('access-list'),filter=$('access-filter').value;
+ root.textContent='';
+ const sorted=[...students].sort((a,b)=>{
+   const aPending=a.access_status==='pending'?1:0,bPending=b.access_status==='pending'?1:0;
+   return bPending-aPending||String(b.created_at||'').localeCompare(String(a.created_at||''));
+ });
+ const list=sorted.filter(s=>filter==='all'||(s.access_status||'pending')===filter);
+ if(!list.length){root.innerHTML='<div class="empty">No hay solicitudes con este estado.</div>';return;}
+ for(const s of list){
+   const state=s.access_status||'pending';
+   const card=document.createElement('article');card.className='access-card';
+   const head=document.createElement('div');head.className='summary';
+   const who=document.createElement('div');
+   const name=document.createElement('strong');name.textContent=s.full_name||'Estudiante';
+   const info=document.createElement('div');info.className='small muted';
+   info.textContent=s.email+' · Registrado: '+fmt(s.created_at);
+   who.append(name,info);
+   const badge=document.createElement('span');badge.className='badge '+state;
+   badge.textContent=accessText[state]||state;
+   head.append(who,badge);card.append(head);
+   const actions=document.createElement('div');actions.className='actions';
+   const hint=document.createElement('span');hint.className='small muted';
+   const action=async(next)=>{
+     const explain=next==='approved'?'¿Confirmas que revisaste la compra y deseas aprobar este acceso?':
+       next==='rejected'?'¿Rechazar esta solicitud?':
+       '¿Suspender temporalmente el acceso de este estudiante?';
+     if(!confirm(explain))return;
+     actions.querySelectorAll('button').forEach(b=>b.disabled=true);
+     hint.textContent='Guardando…';
+     const {error}=await db.rpc('ruta_set_access',{p_student:s.id,p_status:next});
+     if(error){hint.textContent='Error: '+error.message;actions.querySelectorAll('button').forEach(b=>b.disabled=false);return;}
+     try{await load();}catch(e){hint.textContent='Cambio guardado, pero falló actualizar la vista: '+e.message;}
+   };
+   const make=(text,next,cls)=>{
+      const b=document.createElement('button');b.type='button';
+      b.className='button tiny '+cls;b.textContent=text;
+      b.onclick=()=>action(next);actions.append(b);
+   };
+   if(state==='pending'){
+     make('Aprobar acceso','approved','primary');
+     make('Rechazar','rejected','danger');
+   }else if(state==='approved'){
+     make('Suspender acceso','suspended','danger');
+   }else{
+     make('Aprobar después de comprobar compra','approved','primary');
+   }
+   actions.append(hint);card.append(actions);root.append(card);
+ }
+}
+$('access-filter').onchange=renderAccess;
+$('refresh-access').onclick=()=>load().catch(e=>$('last-sync').textContent='Error: '+e.message);
+
 $('status-filter').onchange=render;
 $('reload-data').onclick=()=>load().catch(e=>$('last-sync').textContent='Error: '+e.message);
 (async()=>{
  try{
   const {data:{user},error}=await db.auth.getUser();
   if(error)throw error;
-  if(!user){$('loading').classList.add('hidden');$('not-allowed').classList.remove('hidden');return;}
+  if(!user){$('loading').classList.add('hidden');$('not-allowed').classList.remove('hidden');
+  $('not-allowed').querySelector('h2').textContent='Inicia sesión como profesor';
+  $('not-allowed').querySelector('p').textContent='Para entrar al panel docente, inicia sesión con tu cuenta de profesor.';
+  return;}
   $('user-email').textContent=user.email||'';$('logout').classList.remove('hidden');
   const {data,error:pe}=await db.from('ruta_profiles').select('role').eq('id',user.id).single();
   if(pe)throw pe;

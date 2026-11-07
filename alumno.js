@@ -12,7 +12,7 @@ const images=Array(5).fill(null),timers=Array(5).fill(null),chains=Array.from({l
 let saveFailed=false,formMode='login';
 function notice(message,type=''){const el=$('global-notice');el.textContent=message;el.className='notice '+type;el.classList.remove('hidden');}
 function status(text){$('save-status').textContent=text;}
-function canEdit(){return ['draft','changes_requested'].includes(task.status);}
+function canEdit(){return profile?.access_status==='approved' && ['draft','changes_requested'].includes(task.status);}
 function productData(slot){return Object.fromEntries(window.RUTA_FIELDS.map(k=>[k,String(products[slot][k]??'').slice(0,500)]));}
 function qSave(slot){
  const job=chains[slot].catch(()=>{}).then(async()=>{
@@ -60,7 +60,7 @@ $('auth-form').onsubmit=async e=>{
    if(!name)throw Error('Escribe tu nombre.');
    const {data,error}=await db.auth.signUp({email,password,options:{data:{full_name:name},emailRedirectTo:location.origin+location.pathname}});
    if(error)throw error;
-   if(!data.session){$('auth-msg').textContent='Si el registro es válido, recibirás un correo para confirmar tu cuenta. Revisa también spam. (Las cuentas de prueba necesitan servicio de correo configurado.)';}
+   if(!data.session){$('auth-msg').textContent='Solicitud recibida. Confirma tu correo (si se solicita) y espera la aprobación manual del profesor. Revisa también spam.';}
    else await bootstrap();
   }else{
    const {error}=await db.auth.signInWithPassword({email,password});
@@ -71,6 +71,7 @@ $('auth-form').onsubmit=async e=>{
  finally{$('auth-submit').disabled=false;}
 };
 $('logout').onclick=async()=>{await db.auth.signOut();location.reload();};
+$('check-status').onclick=()=>bootstrap();
 function renderTabs(){
  const root=$('slots');root.textContent='';
  products.forEach((p,i)=>{
@@ -262,17 +263,31 @@ async function loadData(){
 async function bootstrap(){
  try{
   const {data:{user:u},error}=await db.auth.getUser();if(error)throw error;
-  $('setup-screen').classList.add('hidden');$('auth-screen').classList.add('hidden');$('student-screen').classList.add('hidden');
-  if(!u){$('logout').classList.add('hidden');$('auth-screen').classList.remove('hidden');return;}
+  $('setup-screen').classList.add('hidden');$('auth-screen').classList.add('hidden');
+  $('pending-screen').classList.add('hidden');$('student-screen').classList.add('hidden');
+  if(!u){user=null;profile=null;$('logout').classList.add('hidden');$('auth-screen').classList.remove('hidden');return;}
   user=u;$('user-email').textContent=u.email||'';$('logout').classList.remove('hidden');
-  const {data:p,error:pe}=await db.from('ruta_profiles').select('role,full_name').eq('id',u.id).single();if(pe)throw pe;
+  const {data:p,error:pe}=await db.from('ruta_profiles').select('role,full_name,access_status').eq('id',u.id).single();if(pe)throw pe;
   profile=p;
   if(profile.role==='teacher'){location.replace('./profesor.html');return;}
+  if(profile.access_status!=='approved'){
+    $('pending-screen').classList.remove('hidden');
+    const state=profile.access_status;
+    $('pending-title').textContent=state==='rejected'?'Solicitud no aprobada':
+      state==='suspended'?'Acceso suspendido':'Solicitud en revisión';
+    $('pending-desc').textContent=state==='rejected'?
+      'No se aprobó tu solicitud. Contacta al profesor si consideras que es un error.':
+      state==='suspended'?'Tu acceso se encuentra suspendido. Contacta al profesor.':
+      'Ya recibimos tu solicitud. El profesor comprobará manualmente que tu correo corresponda a una compra válida del curso. Regresa aquí para consultar el estado.';
+    return;
+  }
   $('student-screen').classList.remove('hidden');
   await loadData();status('Conectado y sincronizado');
  }catch(ex){
+  $('student-screen').classList.add('hidden');$('pending-screen').classList.add('hidden');
   $('auth-screen').classList.remove('hidden');
-  $('auth-msg').textContent='No se pudo cargar tu cuenta. Verifica la instalación de la base de datos: '+ex.message;
+  $('auth-msg').textContent='No se pudo cargar tu cuenta: '+ex.message+
+    '. Si acabamos de actualizar el sistema, avisa al profesor antes de volver a intentarlo.';
  }
 }
 renderCriteria();bootstrap();
