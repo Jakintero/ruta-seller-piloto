@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#13171f">
+<title>Acceso a Herramientas | Ruta Seller</title>
+<meta name="description" content="Plataforma Ruta Seller para estudiantes: validación de productos, rentabilidad y publicidad PPC.">
+<link rel="canonical" href="https://jakintero.github.io/ruta-seller-piloto/">
+<link rel="icon" type="image/png" href="./favicon-seller-azul-v3.png">
+<link rel="apple-touch-icon" href="./apple-touch-seller-azul-v3.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_CO">
+<meta property="og:site_name" content="Ruta Seller">
+<meta property="og:title" content="Herramientas Amazon FBA | Ruta Seller">
+<meta property="og:description" content="Plataforma para alumnos de Ruta Seller: investiga productos, calcula rentabilidad y planifica tu PPC.">
+<meta property="og:url" content="https://jakintero.github.io/ruta-seller-piloto/">
+<meta property="og:image" content="https://jakintero.github.io/ruta-seller-piloto/vista-previa-seller-azul-v3.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="stylesheet" href="./estilos.css">
+<style>
+/* Acceso primero: ninguna tarjeta se muestra hasta verificar usuario y autorización. */
+:root{color-scheme:light}
+body{min-height:100vh}
+.hero-access{padding:35px 0 82px;background:#13171f;color:white}
+.hero-access .eyebrow{color:#ffb660}
+.hero-access h1{font-size:clamp(29px,4.3vw,48px);margin-bottom:12px}
+.hero-access p{max-width:650px;color:#dce3ea;font-size:clamp(16px,1.8vw,19px)}
+.access-body{min-height:430px}
+.login-card{max-width:575px;margin:-44px auto 45px;position:relative;z-index:1}
+.login-card .panel{border-radius:22px;padding:clamp(22px,4vw,36px);box-shadow:0 14px 40px #13171f0f}
+.login-card .switch{margin-bottom:25px}
+.login-card .switch button{min-height:51px;font-size:17px}
+.login-card .field{font-size:16px;gap:8px}
+.login-card input{min-height:51px;font-size:16px}
+.login-card .form-stack{gap:19px}
+.login-card .button.orange{width:100%;font-size:17px;min-height:54px}
+.password-entry{position:relative;width:100%}
+.password-entry input{padding-right:118px}
+.password-toggle{position:absolute;right:6px;top:50%;transform:translateY(-50%);height:40px;min-width:103px;padding:5px 9px;
+color:#1b2838;background:#f4f5f7;border:1px solid #dce1e9;border-radius:9px;font-size:14px;font-weight:750;cursor:pointer}
+.password-toggle:focus-visible{outline:3px solid #ffb660;outline-offset:1px}
+.auth-help{font-size:13px;color:#617083;margin-top:20px;line-height:1.65}
+.status-message{margin:17px 0 0;font-size:14px;line-height:1.55;white-space:pre-line}
+.status-message:empty{display:none}
+.status-message.error{color:#ad433d}
+.status-message.ok{color:#147d53}
+.status-message.wait{color:#4c6076}
+.state-card{max-width:660px;margin:-39px auto 54px;position:relative}
+.state-card .panel{padding:30px;border-radius:20px}
+.state-card h2{margin-bottom:12px}
+.waiting{max-width:660px;margin:-36px auto 48px;position:relative}
+.access-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:17px}
+.tool-area{margin:-36px auto 55px;position:relative}
+.tool-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:23px;flex-wrap:wrap}
+.tool-area h2{font-size:clamp(23px,3vw,31px)}
+.tool-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.tool-card{padding:24px 20px;background:white;border:1px solid #e4e5e8;border-radius:17px;box-shadow:0 5px 18px #13171f09;display:flex;flex-direction:column;gap:11px;min-width:0}
+.tool-card .number{color:#b06625;font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:850}
+.tool-card h3{font-size:21px;line-height:1.2;margin:0}
+.tool-card p{font-size:14px;color:#637080;line-height:1.55;flex:1}
+.tool-card .button{width:100%;text-align:center}
+.top-name{color:#f3f5f7;font-size:14px}
+.setup{max-width:730px;margin:-36px auto 45px;position:relative}
+.footer-site{padding:22px 0 38px;color:#76808d;text-align:center;font-size:13px}
+.hidden{display:none!important}
+@media (max-width:850px){.tool-cards{grid-template-columns:1fr}.tool-card{gap:9px}}
+@media (max-width:600px){
+  .hero-access{padding:31px 0 68px}
+  .login-card,.state-card,.waiting,.tool-area,.setup{margin-top:-36px}
+  .login-card .panel{padding:24px 18px}
+  .login-card .switch button{font-size:15px}
+  .access-actions .button{flex:1}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="./index.html" aria-label="Ruta Seller, inicio">
+      <img src="./logo-ruta-seller.png" alt="Ruta Seller" style="background:#fff;padding:4px">
+      <div><strong>Ruta Seller</strong><span>Plataforma de estudiantes</span></div>
+    </a>
+    <div class="top-actions">
+      <span id="user-email" class="top-name hidden"></span>
+      <button id="logout" type="button" class="button light tiny hidden">Cerrar sesión</button>
+    </div>
+  </div>
+</header>
+<section class="hero-access">
+  <div class="wrap">
+    <span class="eyebrow">RUTA SELLER · CAMPUS DE HERRAMIENTAS</span>
+    <h1 id="hero-title">Bienvenido a Ruta Seller</h1>
+    <p id="hero-desc">Ingresa a tu cuenta o solicita acceso con el correo de compra de tu curso. Tus herramientas y trabajos estarán disponibles después de la aprobación del profesor.</p>
+  </div>
+</section>
+<main class="wrap access-body">
+  <div class="waiting" id="loading-screen" aria-live="polite">
+    <div class="panel">Comprobando tu cuenta…</div>
+  </div>
+  <div class="setup hidden" id="setup-screen">
+    <div class="panel">
+      <h2>No se pudo conectar con Ruta Seller</h2>
+      <p id="setup-msg">Revisa la configuración de Supabase y la conexión a internet.</p>
+      <button id="retry-setup" class="button primary" type="button">Reintentar</button>
+    </div>
+  </div>
+  <div class="login-card hidden" id="auth-screen">
+    <div class="panel">
+      <div class="switch" role="group" aria-label="Selecciona el tipo de acceso">
+        <button type="button" id="show-login" class="active" aria-pressed="true">Iniciar sesión</button>
+        <button type="button" id="show-signup" aria-pressed="false">Crear cuenta</button>
+      </div>
+      <form id="auth-form" class="form-stack">
+        <label class="field hidden" id="name-field">
+          <span class="label">Nombre del estudiante</span>
+          <input id="auth-name" type="text" maxlength="100" autocomplete="name" placeholder="Ej. Ana Martínez">
+        </label>
+        <label class="field">
+          <span class="label">Correo electrónico</span>
+          <input id="auth-email" type="email" required autocomplete="email" placeholder="tu@correo.com">
+        </label>
+        <div class="field">
+          <label class="label" for="auth-password">Contraseña</label>
+          <div class="password-entry">
+            <input id="auth-password" type="password" required minlength="8" autocomplete="current-password" placeholder="Mínimo 8 caracteres">
+            <button type="button" id="password-toggle" class="password-toggle" aria-controls="auth-password" aria-pressed="false" aria-label="Mostrar contraseña">Mostrar</button>
+          </div>
+        </div>
+        <button id="auth-submit" class="button orange" type="submit">Iniciar sesión</button>
+      </form>
+      <p id="auth-msg" class="status-message" role="status" aria-live="polite"></p>
+      <p class="auth-help">Solicita acceso con el mismo correo que utilizaste para comprar el curso. El profesor comprobará tu compra y aprobará tu cuenta. No uses la contraseña de otros servicios.</p>
+    </div>
+  </div>
+  <div class="state-card hidden" id="pending-screen">
+    <div class="panel">
+      <span class="eyebrow">CONTROL DE ACCESO · RUTA SELLER</span>
+      <h2 id="pending-title">Solicitud en revisión</h2>
+      <p id="pending-desc">Recibimos tu solicitud. El profesor verificará manualmente tu compra antes de habilitar las herramientas.</p>
+      <p class="small muted">Confirmar el correo y aprobar la compra son procesos diferentes.</p>
+      <div class="access-actions">
+        <button id="check-status" type="button" class="button primary">Comprobar mi acceso</button>
+        <button id="pending-logout" type="button" class="button light">Cambiar de cuenta</button>
+      </div>
+    </div>
+  </div>
+  <div class="tool-area hidden" id="student-screen">
+    <div class="panel" style="padding:25px">
+      <div class="tool-top">
+        <div>
+          <span class="eyebrow">MI ESPACIO RUTA SELLER</span>
+          <h2 id="welcome-title">Mis herramientas</h2>
+          <p class="muted">Selecciona la herramienta con la que deseas trabajar.</p>
+        </div>
+      </div>
+      <div class="tool-cards">
+        <article class="tool-card">
+          <div class="number">Herramienta 01</div>
+          <h3>Validación de producto</h3>
+          <p>Investiga y compara hasta cinco productos, guarda las fotos y entrega tu tarea al profesor.</p>
+          <a class="button primary" href="./validacion.html">Abrir validación</a>
+        </article>
+        <article class="tool-card">
+          <div class="number">Herramienta 02</div>
+          <h3>Calculadora de rentabilidad</h3>
+          <p>Calcula costos, tarifas de Amazon, utilidad, margen de beneficio y ROI.</p>
+          <a class="button primary" href="./rentabilidad.html">Abrir calculadora</a>
+        </article>
+        <article class="tool-card">
+          <div class="number">Herramienta 03</div>
+          <h3>Simulador de publicidad PPC</h3>
+          <p>Evalúa el efecto del ACoS y las tarifas sobre el resultado de tu campaña.</p>
+          <a class="button primary" href="./publicidad.html">Abrir simulador PPC</a>
+        </article>
+      </div>
+    </div>
+  </div>
+</main>
+<footer class="footer-site">© Ruta Seller · Herramientas educativas para Amazon FBA.</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./supabase-config.js"></script>
+<script>
+(()=>{
+'use strict';
+const $=(id)=>document.getElementById(id);
+const sections=['loading-screen','setup-screen','auth-screen','pending-screen','student-screen'];
+let db=null,mode='login',checking=false;
+function display(id){
+  for(const section of sections)$(section).classList.toggle('hidden',section!==id);
+}
+function note(text,type='wait'){
+  $('auth-msg').textContent=text;
+  $('auth-msg').className='status-message '+type;
+}
+function modeSet(newMode){
+  mode=newMode;
+  $('show-login').classList.toggle('active',mode==='login');
+  $('show-signup').classList.toggle('active',mode==='signup');
+  $('show-login').setAttribute('aria-pressed',String(mode==='login'));
+  $('show-signup').setAttribute('aria-pressed',String(mode==='signup'));
+  $('name-field').classList.toggle('hidden',mode!=='signup');
+  $('auth-name').required=mode==='signup';
+  $('auth-password').autocomplete=mode==='signup'?'new-password':'current-password';
+  $('auth-submit').textContent=mode==='signup'?'Crear mi cuenta':'Iniciar sesión';
+  $('auth-password').type='password';
+  $('password-toggle').textContent='Mostrar';
+  $('password-toggle').setAttribute('aria-pressed','false');
+  $('password-toggle').setAttribute('aria-label','Mostrar contraseña');
+  note('');
+}
+$('show-login').addEventListener('click',()=>modeSet('login'));
+$('show-signup').addEventListener('click',()=>modeSet('signup'));
+$('password-toggle').addEventListener('click',()=>{
+  const input=$('auth-password'),visible=input.type==='password';
+  input.type=visible?'text':'password';
+  $('password-toggle').textContent=visible?'Ocultar':'Mostrar';
+  $('password-toggle').setAttribute('aria-label',visible?'Ocultar contraseña':'Mostrar contraseña');
+  $('password-toggle').setAttribute('aria-pressed',String(visible));
+});
+async function signOut(){
+  if(db){try{await db.auth.signOut();}catch(_err){}}
+  $('user-email').classList.add('hidden');
+  $('logout').classList.add('hidden');
+  $('auth-password').value='';
+  display('auth-screen');
+  modeSet('login');
+}
+$('logout').addEventListener('click',signOut);
+$('pending-logout').addEventListener('click',signOut);
+$('retry-setup').addEventListener('click',()=>location.reload());
+async function refresh(){
+  if(checking)return;
+  checking=true;
+  display('loading-screen');
+  try{
+    if(!db)throw new Error('La conexión con Supabase no está configurada.');
+    const {data:{user},error}=await db.auth.getUser();
+    // Supabase devuelve AuthSessionMissingError cuando todavía nadie inició sesión.
+    if(!user){
+      if(error && !/auth.session.missing|session.missing/i.test(error.message||''))throw error;
+      $('user-email').classList.add('hidden');
+      $('logout').classList.add('hidden');
+      $('hero-title').textContent='Bienvenido a Ruta Seller';
+      display('auth-screen');
+      return;
+    }
+    if(error)throw error;
+    $('user-email').textContent=user.email||'';
+    $('user-email').classList.remove('hidden');
+    $('logout').classList.remove('hidden');
+    const {data:profile,error:pe}=await db.from('ruta_profiles').select('role,full_name,access_status').eq('id',user.id).single();
+    if(pe||!profile)throw pe||new Error('No se encontró tu perfil.');
+    if(profile.role==='teacher'){
+      $('hero-title').textContent='Abriendo panel docente…';
+      location.replace('./profesor.html');
+      return;
+    }
+    if(profile.role!=='student')throw new Error('Esta cuenta no tiene un rol válido.');
+    if(profile.access_status==='approved'){
+      const firstName=String(profile.full_name||'').trim().split(/\s+/)[0];
+      $('welcome-title').textContent='¡Bienvenido'+(firstName?', '+firstName:'')+'!';
+      $('hero-title').textContent='Tus herramientas Ruta Seller';
+      $('hero-desc').textContent='Tu cuenta está aprobada. Puedes continuar tu investigación y acceder a las tres herramientas.';
+      display('student-screen');
+      return;
+    }
+    const s=profile.access_status||'pending';
+    $('hero-title').textContent='Tu cuenta Ruta Seller';
+    $('hero-desc').textContent='La verificación de alumnos se realiza manualmente.';
+    $('pending-title').textContent=s==='rejected'?'Solicitud no aprobada':s==='suspended'?'Acceso suspendido':'Solicitud en revisión';
+    $('pending-desc').textContent=s==='rejected'?'No se aprobó tu solicitud. Contacta al profesor si piensas que hay un error.':
+      s==='suspended'?'Tu acceso se encuentra suspendido. Contacta al profesor.':
+      'Tu cuenta está creada. El profesor verificará manualmente que tu correo corresponda a una compra válida. Cuando la apruebe, podrás utilizar las herramientas.';
+    display('pending-screen');
+  }catch(err){
+    $('setup-msg').textContent='No se pudo verificar tu cuenta: '+(err?.message||String(err))+'. Comprueba internet y supabase-config.js.';
+    display('setup-screen');
+  }finally{checking=false;}
+}
+$('check-status').addEventListener('click',refresh);
+$('auth-form').addEventListener('submit',async e=>{
+  e.preventDefault();
+  if(!db){display('setup-screen');return;}
+  const email=$('auth-email').value.trim(),password=$('auth-password').value;
+  $('auth-submit').disabled=true;
+  note('Verificando datos…','wait');
+  try{
+    if(mode==='signup'){
+      const name=$('auth-name').value.trim();
+      if(!name)throw new Error('Escribe tu nombre.');
+      const {data,error}=await db.auth.signUp({email,password,options:{
+        data:{full_name:name},
+        emailRedirectTo:location.origin+location.pathname
+      }});
+      if(error)throw error;
+      if(data.session){
+        await refresh();
+      }else{
+        note('Solicitud recibida. Revisa tu correo para confirmarlo si Supabase te lo solicita. Después espera la aprobación del profesor.','ok');
+      }
+    }else{
+      const {error}=await db.auth.signInWithPassword({email,password});
+      if(error)throw error;
+      await refresh();
+    }
+  }catch(err){
+    note('No fue posible continuar: '+(err?.message||String(err)),'error');
+  }finally{$('auth-submit').disabled=false;}
+});
+const ready=window.RUTA_SUPABASE_URL?.startsWith('https://') &&
+  !!window.RUTA_SUPABASE_KEY && !window.RUTA_SUPABASE_KEY.includes('PEGA_') &&
+  !!window.supabase?.createClient;
+if(!ready){
+  $('setup-msg').textContent='No se encontró una conexión válida. Comprueba que exista supabase-config.js con la URL y la clave publicable, y que puedas acceder a internet.';
+  display('setup-screen');return;
+}
+db=window.supabase.createClient(window.RUTA_SUPABASE_URL,window.RUTA_SUPABASE_KEY);
+modeSet('login');
+refresh();
+})();
+</script>
+</body>
+</html>
