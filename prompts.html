@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11161f">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Prompts IA · Diferenciación de productos | Ruta Seller</title>
+  <meta name="description" content="Prompt maestro de Ruta Seller para descubrir cinco diferenciaciones de productos físicos para Amazon USA.">
+  <link rel="icon" type="image/png" href="./favicon-seller-azul-v3.png">
+  <link rel="apple-touch-icon" href="./apple-touch-seller-azul-v3.png">
+  <!-- Igual que rentabilidad.html y publicidad.html:
+       si no se confirma la autorización, la página no muestra el contenido.
+       Esto protege la interfaz, no convierte el HTML estático en privado. -->
+  <style>
+    html:not([data-ruta-access="ok"]) body { visibility: hidden !important; }
+    :root {
+      color-scheme: light;
+      --navy:#11161f; --navy2:#1b2534; --orange:#ffb65e;
+      --orange2:#f29e34; --ink:#182437; --muted:#607087;
+      --paper:#f7f6f3; --line:#dee3e9; --blue:#2779eb;
+      --white:#fff;
+    }
+    * {box-sizing:border-box}
+    html {scroll-behavior:smooth}
+    body {margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;font-size:16px}
+    button,textarea,a {font:inherit}
+    button,a { -webkit-tap-highlight-color:transparent }
+    button {cursor:pointer}
+    a {color:inherit}
+    :focus-visible {outline:3px solid var(--blue);outline-offset:3px}
+    .wrap {max-width:1160px;margin:auto;padding:0 24px}
+    .top {background:var(--navy);color:#fff}
+    .top-row {min-height:105px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand {display:flex;align-items:center;gap:15px;text-decoration:none;min-width:0}
+    .brand img {width:66px;height:66px;object-fit:contain;border:2px solid rgba(255,255,255,.92);border-radius:16px;background:#000;flex:none}
+    .brand strong {display:block;font-size:24px;line-height:1.2;letter-spacing:-.5px}
+    .brand span {display:block;color:#b9c3d1;font-size:14px;margin-top:5px}
+    .back {display:inline-flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;border:1px solid #4b5667;border-radius:12px;min-height:47px;padding:11px 18px;font-weight:700;color:#fff;transition:background .15s}
+    .back:hover {background:#253245}
+    .hero {padding:37px 0 100px;background:var(--navy);color:white}
+    .eyebrow {font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--orange);font-weight:800}
+    .hero h1 {max-width:850px;font-size:clamp(35px,5vw,58px);letter-spacing:-1.8px;line-height:1.11;margin:16px 0 20px}
+    .hero p {color:#d8dee8;font-size:clamp(17px,2vw,20px);max-width:800px;margin:0;line-height:1.68}
+    main {position:relative;margin-top:-48px;padding-bottom:56px}
+    .panel {background:#fff;border:1px solid var(--line);border-radius:24px;padding:clamp(22px,4.5vw,40px);box-shadow:0 10px 28px #1b253414}
+    .labeltop {font-size:13px;letter-spacing:1.7px;color:#ae6219;font-weight:850;text-transform:uppercase;margin-bottom:10px}
+    h2 {font-size:clamp(25px,2.9vw,34px);line-height:1.2;letter-spacing:-.7px;margin:0}
+    .subcopy {color:var(--muted);margin:13px 0 26px;max-width:740px}
+    label[for="product-input"] {display:block;font-weight:800;font-size:17px;margin-bottom:9px}
+    #product-input {display:block;width:100%;min-height:116px;resize:vertical;border:1.5px solid #cbd5e1;background:#fff;color:var(--ink);border-radius:14px;padding:17px 19px;font-size:17px;line-height:1.5;box-shadow:inset 0 1px 2px #11161f08}
+    #product-input::placeholder {color:#78869b;opacity:1}
+    #product-input:focus {outline:3px solid #b9d9ff;border-color:#468be7}
+    .hint {display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14px;margin:10px 0 0}
+    .actionbar {display:flex;align-items:stretch;flex-wrap:wrap;gap:12px;margin-top:25px}
+    .btn {border:1px solid transparent;border-radius:13px;padding:15px 20px;min-height:54px;font-size:16px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:9px;text-align:center;text-decoration:none;line-height:1.3;transition:transform .12s,background .15s,border-color .15s}
+    .btn:hover {transform:translateY(-1px)}
+    .btn-main {background:var(--orange);color:#1a2535}
+    .btn-main:hover {background:#ffc47d}
+    .btn-light {background:#f3f5f8;color:#1d2d40;border-color:#dfe4ed}
+    .btn-light:hover {background:#e9edf4}
+    .btn-dark {background:var(--navy2);color:#fff}
+    .btn-dark:hover {background:#26364a}
+    .btn svg {width:18px;height:18px;flex:none}
+    .status {margin:15px 0 0;font-size:15px;font-weight:700;min-height:24px;color:#227344}
+    .status[data-error="true"] {color:#ba3535}
+    .privacy {border-top:1px solid var(--line);margin-top:20px;padding-top:17px;color:var(--muted);font-size:14px}
+    .below {display:grid;grid-template-columns:1fr minmax(255px,320px);gap:20px;margin-top:22px;align-items:start}
+    .prompt-card {min-width:0;background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden}
+    .prompt-card details {border:0}
+    .prompt-card summary {list-style:none;cursor:pointer;padding:23px 25px;display:flex;justify-content:space-between;align-items:center;gap:15px;font-size:19px;font-weight:850}
+    .prompt-card summary::-webkit-details-marker {display:none}
+    .prompt-card summary::after {content:"+";width:29px;height:29px;display:grid;place-items:center;background:#eef1f6;border-radius:50%;font-size:25px;font-weight:500;flex:none}
+    .prompt-card details[open] summary::after {content:"−"}
+    .prompt-card .preview-description {color:var(--muted);font-size:14px;padding:0 25px 21px;margin:0}
+    .prompt-body {background:#f8fafc;border-top:1px solid var(--line);padding:24px 25px}
+    #prompt-preview {white-space:pre-wrap;overflow-wrap:anywhere;margin:0;color:#233249;font:15px/1.7 ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;max-height:590px;overflow-y:auto;overscroll-behavior:contain}
+    .howto {background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px}
+    .howto h3 {font-size:19px;margin:0 0 17px;letter-spacing:-.2px}
+    .step {display:flex;gap:13px;margin-bottom:17px}
+    .step:last-child {margin-bottom:0}
+    .number {flex:none;background:#fff2e2;color:#99500e;width:29px;height:29px;border-radius:9px;display:grid;place-items:center;font-size:14px;font-weight:900}
+    .step p {margin:0;color:#49596e;font-size:15px}
+    .step strong {display:block;color:var(--ink);margin-bottom:2px;font-size:15px}
+    .foot {text-align:center;color:#69768a;font-size:13px;padding:0 20px 30px}
+    @media(max-width:800px) {
+      .below {grid-template-columns:1fr}
+      .top-row {min-height:89px}
+      .brand img {width:57px;height:57px}
+      .brand strong {font-size:20px}
+      .hero {padding:30px 0 88px}
+    }
+    @media(max-width:560px) {
+      .wrap {padding:0 16px}
+      .top-row {gap:9px}
+      .brand {gap:10px}
+      .brand img {width:50px;height:50px;border-radius:12px}
+      .brand strong {font-size:17px}
+      .brand span {font-size:12px}
+      .back {padding:10px 12px;min-height:44px;font-size:13px;max-width:125px}
+      .hero {padding:28px 0 75px}
+      .hero h1 {font-size:35px;letter-spacing:-1px;margin:13px 0 15px}
+      .hero p {font-size:16px}
+      main {margin-top:-39px}
+      .panel {border-radius:20px}
+      .actionbar {flex-direction:column}
+      .btn {width:100%;min-height:55px}
+      #product-input {font-size:16px}
+      .prompt-card summary {padding:19px 19px;font-size:17px}
+      .prompt-card .preview-description {padding:0 19px 16px}
+      .prompt-body {padding:17px}
+      #prompt-preview {font-size:13px;line-height:1.65}
+    }
+    @media(prefers-reduced-motion:reduce) {
+      *,*::before,*::after{transition:none!important;scroll-behavior:auto!important}
+    }
+  </style>
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="./supabase-config.js"></script>
+  <script defer src="./acceso-gate.js"></script>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-row">
+      <a class="brand" href="./index.html" aria-label="Ruta Seller, volver al inicio">
+        <img src="./logo-ruta-seller.png" alt="Ruta Seller" width="66" height="66">
+        <span><strong>Ruta Seller</strong><span>Herramientas para estudiantes</span></span>
+      </a>
+      <a class="back" href="./index.html">← Volver al inicio</a>
+    </div>
+    <section class="wrap hero" aria-labelledby="page-title">
+      <div class="eyebrow">Biblioteca de prompts · Amazon USA</div>
+      <h1 id="page-title">5 diferenciaciones de producto</h1>
+      <p>Encuentra mejoras concretas a partir de las necesidades y frustraciones de los compradores, utilizando nuestro prompt maestro de investigación.</p>
+    </section>
+  </header>
+  <main class="wrap">
+    <section class="panel" aria-labelledby="form-heading">
+      <div class="labeltop">Prompt maestro · Investigación del consumidor</div>
+      <h2 id="form-heading">Prepara el análisis de tu producto</h2>
+      <p class="subcopy">Escribe un nombre, ASIN o enlace de Amazon USA. El sistema lo insertará automáticamente en el prompt completo, sin alterar la metodología.</p>
+      <label for="product-input">Nombre del producto, ASIN o enlace de Amazon</label>
+      <textarea id="product-input" rows="2" maxlength="1600" spellcheck="false" placeholder="Ej.: B0XXXXXXXX · Yarn holder for crocheting · https://www.amazon.com/dp/..."></textarea>
+      <p class="hint">Puedes dejar la casilla vacía y copiar el prompt con el espacio [PEGAR AQUÍ] para completarlo después.</p>
+      <div class="actionbar">
+        <button type="button" class="btn btn-main" id="copy-prompt">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
+          Copiar prompt completo
+        </button>
+        <button type="button" class="btn btn-light" id="download-prompt">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M5 17v3h14v-3"/></svg>
+          Descargar TXT
+        </button>
+        <a class="btn btn-dark" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer" id="open-chatgpt">Abrir ChatGPT ↗</a>
+      </div>
+      <p class="status" id="action-status" role="status" aria-live="polite"></p>
+      <p class="privacy">Esta herramienta prepara el texto en tu navegador. <strong>No analiza el producto automáticamente ni envía el contenido a ChatGPT.</strong> Debes pegarlo en una conversación para iniciar el análisis.</p>
+    </section>
+    <div class="below">
+      <section class="prompt-card" aria-label="Prompt maestro completo">
+        <details id="prompt-details">
+          <summary>Ver el prompt maestro completo</summary>
+          <p class="preview-description">Aquí puedes leer las cuatro fases, la tabla solicitada y todas las reglas. El producto se actualiza al escribirlo arriba.</p>
+          <div class="prompt-body"><pre id="prompt-preview" tabindex="0"></pre></div>
+        </details>
+      </section>
+      <aside class="howto" aria-labelledby="howto-title">
+        <h3 id="howto-title">Cómo utilizarlo</h3>
+        <div class="step"><span class="number">1</span><p><strong>Elige tu producto.</strong> Pega el nombre, ASIN o enlace de Amazon.</p></div>
+        <div class="step"><span class="number">2</span><p><strong>Copia el prompt.</strong> Se insertará tu producto en la metodología.</p></div>
+        <div class="step"><span class="number">3</span><p><strong>Abre ChatGPT.</strong> Pega el texto y solicita la investigación.</p></div>
+        <div class="step"><span class="number">4</span><p><strong>Evalúa la evidencia.</strong> Diferencia las reseñas verificadas de las hipótesis.</p></div>
+      </aside>
+    </div>
+  </main>
+  <footer class="foot">Ruta Seller · Herramientas educativas para Amazon FBA USA</footer>
+  <script type="text/plain" id="ruta-prompt-master"># PROMPT MAESTRO: 5 DIFERENCIACIONES DE PRODUCTO PARA AMAZON USA
+
+Actúa como un experto en investigación del consumidor, desarrollo de productos físicos, innovación y diferenciación de productos para Amazon FBA en Estados Unidos.
+
+Tu misión es encontrar **5 oportunidades de diferenciación reales, específicas y útiles** para el producto que te proporcionaré.
+
+Debes seguir obligatoriamente esta metodología:
+
+**PROBLEMA DEL CONSUMIDOR → SOLUCIÓN CONCRETA → BENEFICIO PERCEPTIBLE → DIFERENCIACIÓN DEL PRODUCTO**
+
+## PRODUCTO A ANALIZAR
+
+**Nombre, ASIN o enlace de Amazon:**
+
+[PEGAR AQUÍ]
+
+Si únicamente te proporciono esta información, comienza el análisis sin hacerme preguntas adicionales.
+
+## FASE 1. INVESTIGA Y DESCUBRE PROBLEMAS
+
+Si tienes acceso a internet, investiga el producto, sus características, reseñas de compradores y preguntas frecuentes, principalmente en Amazon Estados Unidos.
+
+Identifica problemas como:
+
+- Frustraciones que experimentan los compradores.
+- Características que consideran incómodas o deficientes.
+- Dificultades al instalar, utilizar, limpiar, transportar o almacenar el producto.
+- Elementos que los clientes desearían que tuviera.
+- Expectativas que no se cumplen.
+- Situaciones donde el producto podría ofrecer una mejor experiencia.
+
+Analiza especialmente las reseñas de 1, 2 y 3 estrellas, sin ignorar los aspectos positivos que los consumidores más valoran.
+
+Busca problemas que puedan resolverse mediante **modificaciones físicas, funcionales o prácticas del producto**.
+
+No inventes reseñas ni atribuyas quejas específicas a compradores sin evidencia. Si no puedes verificar las reseñas, plantea los problemas como hipótesis y señálalos claramente.
+
+## FASE 2. CONVIERTE LOS PROBLEMAS EN SOLUCIONES
+
+Selecciona 5 problemas o necesidades diferentes que puedan dar origen a una mejora.
+
+Para cada uno, realiza este razonamiento:
+
+**1. PROBLEMA DEL CONSUMIDOR**
+
+¿Qué problema específico experimenta el comprador?
+
+Explica cuándo ocurre y por qué resulta frustrante.
+
+**2. SOLUCIÓN CONCRETA**
+
+¿Qué modificación física, funcional o práctica haríamos al producto para solucionar el problema?
+
+Debes explicar exactamente qué agregar, eliminar, rediseñar o mejorar.
+
+No acepto respuestas vagas como "mejorar la calidad" o "hacerlo más cómodo". Explica cómo se conseguiría.
+
+**3. BENEFICIO PERCEPTIBLE**
+
+¿Qué beneficio experimentaría el comprador gracias a la modificación?
+
+El beneficio debe ser fácil de entender, demostrar y comunicar.
+
+**4. DIFERENCIACIÓN DEL PRODUCTO**
+
+Describe cómo sería la versión mejorada del producto.
+
+Dale un nombre descriptivo a la diferenciación y explica qué característica concreta incorporaría.
+
+**5. MENSAJE PARA AMAZON USA**
+
+Escribe una frase corta en inglés que comunique el beneficio principal.
+
+La frase debe poder utilizarse en una imagen secundaria del listing de Amazon.
+
+**6. VALIDACIÓN DEL PROBLEMA**
+
+Indica si el problema proviene de una reseña real verificada, una observación del uso del producto o una hipótesis que necesita validación.
+
+## FASE 3. PRESENTA LAS CINCO DIFERENCIACIONES
+
+Entrega los resultados en una tabla que tenga exactamente estas columnas:
+
+| # | Problema del consumidor | Solución concreta | Beneficio perceptible | Diferenciación del producto |
+| - | ----------------------- | ----------------- | --------------------- | --------------------------- |
+
+Después de la tabla desarrolla brevemente cada idea, incluyendo el mensaje comercial en inglés y el origen de la evidencia.
+
+Las cinco ideas deben ser suficientemente distintas entre sí y ofrecer beneficios concretos.
+
+## FASE 4. SELECCIONA LA MEJOR DIFERENCIACIÓN
+
+Analiza las cinco ideas y responde:
+
+1. ¿Cuál resuelve el problema más importante para el usuario?
+2. ¿Cuál tiene el beneficio más fácil de percibir y comunicar?
+3. ¿Cuáles dos ideas podrían combinarse para crear un producto más atractivo?
+4. ¿Cuál sería tu diferenciación recomendada y por qué?
+
+Termina describiendo cómo se vería y funcionaría el producto con la diferenciación recomendada, de forma que pueda utilizar esa descripción para explicarle la idea a un diseñador o fabricante.
+
+## REGLAS OBLIGATORIAS
+
+- No analices demanda, volumen de ventas, competencia, costos, márgenes ni rentabilidad.
+- No propongas ideas genéricas que puedan aplicarse indistintamente a cualquier producto.
+- No recomiendes únicamente cambios de color, logo o empaque.
+- No agregues accesorios que no resuelvan un problema específico.
+- No inventes información ni afirmes que una diferenciación está validada sin evidencia.
+- Evita mejoras que dependan de copiar diseños protegidos o realizar afirmaciones de seguridad no demostradas.
+- No confundas una característica del producto con el beneficio que recibe el comprador.
+- No propongas cinco ideas que solucionen exactamente el mismo problema.
+
+**REGLA MÁS IMPORTANTE:**
+
+Ninguna idea de diferenciación puede existir sin un problema o necesidad claramente identificados.
+
+Si una idea no puede explicar qué problema resuelve, debes descartarla y encontrar una mejor.
+
+**OBJETIVO FINAL:**
+
+Ayudarme a transformar las necesidades y frustraciones de los consumidores en cinco posibles mejoras concretas de un producto físico para Amazon USA.
+
+Comienza el análisis.</script>
+  <script>
+    (() => {
+      'use strict';
+      const productInput = document.getElementById('product-input');
+      const preview = document.getElementById('prompt-preview');
+      const status = document.getElementById('action-status');
+      const fullPrompt = document.getElementById('ruta-prompt-master').textContent.trim();
+      const getReadyPrompt = () => {
+        const product = productInput.value.trim();
+        return product ? fullPrompt.replace('[PEGAR AQUÍ]', product) : fullPrompt;
+      };
+      const updatePreview = () => { preview.textContent = getReadyPrompt(); };
+      const announce = (message, isError = false) => {
+        status.textContent = message;
+        status.dataset.error = String(isError);
+      };
+      productInput.addEventListener('input', () => {
+        updatePreview();
+        announce('');
+      });
+      function fallbackCopy(text) {
+        const temp = document.createElement('textarea');
+        temp.value = text;
+        temp.setAttribute('readonly','');
+        temp.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0;';
+        document.body.appendChild(temp);
+        temp.focus();
+        temp.select();
+        try {
+          return document.execCommand('copy');
+        } finally {
+          temp.remove();
+        }
+      }
+      document.getElementById('copy-prompt').addEventListener('click', async () => {
+        const text = getReadyPrompt();
+        let copied = false;
+        if (navigator.clipboard && window.isSecureContext) {
+          try { await navigator.clipboard.writeText(text); copied = true; } catch (_) {}
+        }
+        if (!copied) {
+          try { copied = fallbackCopy(text); } catch (_) {}
+        }
+        if (copied) {
+          announce(productInput.value.trim() ? '✓ Prompt completo copiado con tu producto. Ahora puedes pegarlo en ChatGPT.' : '✓ Prompt copiado. Recuerda reemplazar [PEGAR AQUÍ] con tu producto.');
+        } else {
+          document.getElementById('prompt-details').open = true;
+          const range = document.createRange();
+          range.selectNodeContents(preview);
+          const selection = window.getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+          announce('No se pudo copiar automáticamente. El texto quedó seleccionado: utiliza Copiar en el menú de tu dispositivo.', true);
+        }
+      });
+      document.getElementById('download-prompt').addEventListener('click', () => {
+        const content = getReadyPrompt();
+        const blob = new Blob(['\ufeff', content], {type:'text/plain;charset=utf-8'});
+        const objectUrl = URL.createObjectURL(blob);
+        const anchor = document.createElement('a');
+        anchor.href = objectUrl;
+        anchor.download = 'Ruta_Seller_Prompt_5_Diferenciaciones.txt';
+        document.body.appendChild(anchor);
+        anchor.click();
+        anchor.remove();
+        window.setTimeout(() => URL.revokeObjectURL(objectUrl), 2000);
+        announce('✓ Archivo TXT preparado para descargar.');
+      });
+      updatePreview();
+    })();
+  </script>
+</body>
+</html>

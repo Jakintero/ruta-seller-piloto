@@ -3,20 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#13171f">
 <title>Acceso a Herramientas | Ruta Seller</title>
-<meta name="description" content="Plataforma Ruta Seller para estudiantes: validación de productos, rentabilidad y publicidad PPC.">
-<link rel="canonical" href="https://jakintero.github.io/ruta-seller-piloto/">
+<meta name="description" content="Plataforma Ruta Seller para estudiantes: validación de productos, rentabilidad, publicidad PPC y prompts IA.">
+<link rel="canonical" href="https://jakintero.github.io/ruta-seller-herramientas/">
 <link rel="icon" type="image/png" href="./favicon-seller-azul-v3.png">
 <link rel="apple-touch-icon" href="./apple-touch-seller-azul-v3.png">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_CO">
 <meta property="og:site_name" content="Ruta Seller">
 <meta property="og:title" content="Herramientas Amazon FBA | Ruta Seller">
-<meta property="og:description" content="Plataforma para alumnos de Ruta Seller: investiga productos, calcula rentabilidad y planifica tu PPC.">
-<meta property="og:url" content="https://jakintero.github.io/ruta-seller-piloto/">
-<meta property="og:image" content="https://jakintero.github.io/ruta-seller-piloto/vista-previa-seller-azul-v3.png">
+<meta property="og:description" content="Plataforma para alumnos de Ruta Seller: investiga productos, calcula rentabilidad, planifica PPC y utiliza prompts IA.">
+<meta property="og:url" content="https://jakintero.github.io/ruta-seller-herramientas/">
+<meta property="og:image" content="https://jakintero.github.io/ruta-seller-herramientas/vista-previa-seller-azul-v3.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <link rel="stylesheet" href="./estilos.css">
@@ -56,7 +55,8 @@ color:#1b2838;background:#f4f5f7;border:1px solid #dce1e9;border-radius:9px;font
 .tool-area{margin:-36px auto 55px;position:relative}
 .tool-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:23px;flex-wrap:wrap}
 .tool-area h2{font-size:clamp(23px,3vw,31px)}
-.tool-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+/* Cuatro herramientas: dos columnas equilibradas en escritorio. */
+.tool-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .tool-card{padding:24px 20px;background:white;border:1px solid #e4e5e8;border-radius:17px;box-shadow:0 5px 18px #13171f09;display:flex;flex-direction:column;gap:11px;min-width:0}
 .tool-card .number{color:#b06625;font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:850}
 .tool-card h3{font-size:21px;line-height:1.2;margin:0}
@@ -93,7 +93,7 @@ color:#1b2838;background:#f4f5f7;border:1px solid #dce1e9;border-radius:9px;font
   <div class="wrap">
     <span class="eyebrow">RUTA SELLER · CAMPUS DE HERRAMIENTAS</span>
     <h1 id="hero-title">Bienvenido a Ruta Seller</h1>
-    <p id="hero-desc">Inicia sesión o regístrate con el correo de compra de tu curso. Tus herramientas y trabajos estarán disponibles después de la aprobación del profesor.</p>
+    <p id="hero-desc">Ingresa a tu cuenta o solicita acceso con el correo de compra de tu curso. Tus herramientas y trabajos estarán disponibles después de la aprobación del profesor.</p>
   </div>
 </section>
 <main class="wrap access-body">
@@ -174,6 +174,12 @@ color:#1b2838;background:#f4f5f7;border:1px solid #dce1e9;border-radius:9px;font
           <h3>Simulador de publicidad PPC</h3>
           <p>Evalúa el efecto del ACoS y las tarifas sobre el resultado de tu campaña.</p>
           <a class="button primary" href="./publicidad.html">Abrir simulador PPC</a>
+        </article>
+        <article class="tool-card">
+          <div class="number">Herramienta 04</div>
+          <h3>Prompts</h3>
+          <p>Elige el prompt que necesitas: diferenciación de producto o creación de un listado optimizado para Amazon USA.</p>
+          <a class="button primary" href="./prompts.html">Explorar Prompts</a>
         </article>
       </div>
     </div>
@@ -263,7 +269,7 @@ async function refresh(){
       const firstName=String(profile.full_name||'').trim().split(/\s+/)[0];
       $('welcome-title').textContent='¡Bienvenido'+(firstName?', '+firstName:'')+'!';
       $('hero-title').textContent='Tus herramientas Ruta Seller';
-      $('hero-desc').textContent='Tu cuenta está aprobada. Puedes continuar tu investigación y acceder a las tres herramientas.';
+      $('hero-desc').textContent='Tu cuenta está aprobada. Puedes continuar tu investigación y acceder a las cuatro herramientas.';
       display('student-screen');
       return;
     }

@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11161f">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Prompt de creación de listado Amazon USA | Ruta Seller</title>
+  <meta name="description" content="Prompt para redactar listados de Amazon USA usando datos reales, beneficios y keywords relevantes.">
+  <link rel="icon" type="image/png" href="./favicon-seller-azul-v3.png">
+  <link rel="apple-touch-icon" href="./apple-touch-seller-azul-v3.png">
+  <!-- Igual que rentabilidad.html y publicidad.html:
+       si no se confirma la autorización, la página no muestra el contenido.
+       Esto protege la interfaz, no convierte el HTML estático en privado. -->
+  <style>
+    html:not([data-ruta-access="ok"]) body { visibility: hidden !important; }
+    :root {
+      color-scheme: light;
+      --navy:#11161f; --navy2:#1b2534; --orange:#ffb65e;
+      --orange2:#f29e34; --ink:#182437; --muted:#607087;
+      --paper:#f7f6f3; --line:#dee3e9; --blue:#2779eb;
+      --white:#fff;
+    }
+    * {box-sizing:border-box}
+    html {scroll-behavior:smooth}
+    body {margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;font-size:16px}
+    button,textarea,a {font:inherit}
+    button,a { -webkit-tap-highlight-color:transparent }
+    button {cursor:pointer}
+    a {color:inherit}
+    :focus-visible {outline:3px solid var(--blue);outline-offset:3px}
+    .wrap {max-width:1160px;margin:auto;padding:0 24px}
+    .top {background:var(--navy);color:#fff}
+    .top-row {min-height:105px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand {display:flex;align-items:center;gap:15px;text-decoration:none;min-width:0}
+    .brand img {width:66px;height:66px;object-fit:contain;border:2px solid rgba(255,255,255,.92);border-radius:16px;background:#000;flex:none}
+    .brand strong {display:block;font-size:24px;line-height:1.2;letter-spacing:-.5px}
+    .brand span {display:block;color:#b9c3d1;font-size:14px;margin-top:5px}
+    .back {display:inline-flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;border:1px solid #4b5667;border-radius:12px;min-height:47px;padding:11px 18px;font-weight:700;color:#fff;transition:background .15s}
+    .back:hover {background:#253245}
+    .hero {padding:37px 0 100px;background:var(--navy);color:white}
+    .eyebrow {font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--orange);font-weight:800}
+    .hero h1 {max-width:850px;font-size:clamp(35px,5vw,58px);letter-spacing:-1.8px;line-height:1.11;margin:16px 0 20px}
+    .hero p {color:#d8dee8;font-size:clamp(17px,2vw,20px);max-width:800px;margin:0;line-height:1.68}
+    main {position:relative;margin-top:-48px;padding-bottom:56px}
+    .panel {background:#fff;border:1px solid var(--line);border-radius:24px;padding:clamp(22px,4.5vw,40px);box-shadow:0 10px 28px #1b253414}
+    .labeltop {font-size:13px;letter-spacing:1.7px;color:#ae6219;font-weight:850;text-transform:uppercase;margin-bottom:10px}
+    h2 {font-size:clamp(25px,2.9vw,34px);line-height:1.2;letter-spacing:-.7px;margin:0}
+    .subcopy {color:var(--muted);margin:13px 0 26px;max-width:740px}
+    label[for="product-input"] {display:block;font-weight:800;font-size:17px;margin-bottom:9px}
+    #product-input {display:block;width:100%;min-height:116px;resize:vertical;border:1.5px solid #cbd5e1;background:#fff;color:var(--ink);border-radius:14px;padding:17px 19px;font-size:17px;line-height:1.5;box-shadow:inset 0 1px 2px #11161f08}
+    #product-input::placeholder {color:#78869b;opacity:1}
+    #product-input:focus {outline:3px solid #b9d9ff;border-color:#468be7}
+    .hint {display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14px;margin:10px 0 0}
+    .actionbar {display:flex;align-items:stretch;flex-wrap:wrap;gap:12px;margin-top:25px}
+    .btn {border:1px solid transparent;border-radius:13px;padding:15px 20px;min-height:54px;font-size:16px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:9px;text-align:center;text-decoration:none;line-height:1.3;transition:transform .12s,background .15s,border-color .15s}
+    .btn:hover {transform:translateY(-1px)}
+    .btn-main {background:var(--orange);color:#1a2535}
+    .btn-main:hover {background:#ffc47d}
+    .btn-light {background:#f3f5f8;color:#1d2d40;border-color:#dfe4ed}
+    .btn-light:hover {background:#e9edf4}
+    .btn-dark {background:var(--navy2);color:#fff}
+    .btn-dark:hover {background:#26364a}
+    .btn svg {width:18px;height:18px;flex:none}
+    .status {margin:15px 0 0;font-size:15px;font-weight:700;min-height:24px;color:#227344}
+    .status[data-error="true"] {color:#ba3535}
+    .privacy {border-top:1px solid var(--line);margin-top:20px;padding-top:17px;color:var(--muted);font-size:14px}
+    .below {display:grid;grid-template-columns:1fr minmax(255px,320px);gap:20px;margin-top:22px;align-items:start}
+    .prompt-card {min-width:0;background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden}
+    .prompt-card details {border:0}
+    .prompt-card summary {list-style:none;cursor:pointer;padding:23px 25px;display:flex;justify-content:space-between;align-items:center;gap:15px;font-size:19px;font-weight:850}
+    .prompt-card summary::-webkit-details-marker {display:none}
+    .prompt-card summary::after {content:"+";width:29px;height:29px;display:grid;place-items:center;background:#eef1f6;border-radius:50%;font-size:25px;font-weight:500;flex:none}
+    .prompt-card details[open] summary::after {content:"−"}
+    .prompt-card .preview-description {color:var(--muted);font-size:14px;padding:0 25px 21px;margin:0}
+    .prompt-body {background:#f8fafc;border-top:1px solid var(--line);padding:24px 25px}
+    #prompt-preview {white-space:pre-wrap;overflow-wrap:anywhere;margin:0;color:#233249;font:15px/1.7 ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;max-height:590px;overflow-y:auto;overscroll-behavior:contain}
+    .howto {background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px}
+    .howto h3 {font-size:19px;margin:0 0 17px;letter-spacing:-.2px}
+    .step {display:flex;gap:13px;margin-bottom:17px}
+    .step:last-child {margin-bottom:0}
+    .number {flex:none;background:#fff2e2;color:#99500e;width:29px;height:29px;border-radius:9px;display:grid;place-items:center;font-size:14px;font-weight:900}
+    .step p {margin:0;color:#49596e;font-size:15px}
+    .step strong {display:block;color:var(--ink);margin-bottom:2px;font-size:15px}
+    .foot {text-align:center;color:#69768a;font-size:13px;padding:0 20px 30px}
+    @media(max-width:800px) {
+      .below {grid-template-columns:1fr}
+      .top-row {min-height:89px}
+      .brand img {width:57px;height:57px}
+      .brand strong {font-size:20px}
+      .hero {padding:30px 0 88px}
+    }
+    @media(max-width:560px) {
+      .wrap {padding:0 16px}
+      .top-row {gap:9px}
+      .brand {gap:10px}
+      .brand img {width:50px;height:50px;border-radius:12px}
+      .brand strong {font-size:17px}
+      .brand span {font-size:12px}
+      .back {padding:10px 12px;min-height:44px;font-size:13px;max-width:125px}
+      .hero {padding:28px 0 75px}
+      .hero h1 {font-size:35px;letter-spacing:-1px;margin:13px 0 15px}
+      .hero p {font-size:16px}
+      main {margin-top:-39px}
+      .panel {border-radius:20px}
+      .actionbar {flex-direction:column}
+      .btn {width:100%;min-height:55px}
+      #product-input {font-size:16px}
+      .prompt-card summary {padding:19px 19px;font-size:17px}
+      .prompt-card .preview-description {padding:0 19px 16px}
+      .prompt-body {padding:17px}
+      #prompt-preview {font-size:13px;line-height:1.65}
+    }
+    @media(prefers-reduced-motion:reduce) {
+      *,*::before,*::after{transition:none!important;scroll-behavior:auto!important}
+    }
+  </style>
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="./supabase-config.js"></script>
+  <script defer src="./acceso-gate.js"></script>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-row">
+      <a class="brand" href="./index.html" aria-label="Ruta Seller, volver al inicio">
+        <img src="./logo-ruta-seller.png" alt="Ruta Seller" width="66" height="66">
+        <span><strong>Ruta Seller</strong><span>Herramientas para estudiantes</span></span>
+      </a>
+      <a class="back" href="./prompts.html">← Todos los prompts</a>
+    </div>
+    <section class="wrap hero" aria-labelledby="page-title">
+      <div class="eyebrow">Biblioteca de prompts · Amazon USA</div>
+      <h1 id="page-title">Creación de listado para Amazon USA</h1>
+      <p>Organiza tus datos verificables y keywords para preparar un listado en inglés orientado a búsquedas y beneficios reales.</p>
+    </section>
+  </header>
+  <main class="wrap">
+    <section class="panel" aria-labelledby="form-heading">
+      <div class="labeltop">Plantilla inicial · Amazon SEO y conversión</div>
+      <h2 id="form-heading">Prepara la información de tu producto</h2>
+      <p class="subcopy">Pega el nombre, ASIN, enlace, atributos reales y keywords que tengas. La herramienta los insertará en un prompt estructurado para redactar el listado.</p>
+      <label for="product-input">Datos del producto y keywords (si los tienes)</label>
+      <textarea id="product-input" rows="5" maxlength="8000" spellcheck="false" placeholder="Nombre: ...&#10;ASIN: ...&#10;Marca: ...&#10;Características verificadas: ...&#10;Keywords de Helium 10 / Data Dive (si tienes): ..."></textarea>
+      <p class="hint">Puedes dejar esta casilla vacía y completar [PEGAR AQUÍ] más adelante. No hace falta disponer de Helium 10 ni Data Dive para utilizar el prompt.</p>
+      <div class="actionbar">
+        <button type="button" class="btn btn-main" id="copy-prompt">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
+          Copiar prompt completo
+        </button>
+        <button type="button" class="btn btn-light" id="download-prompt">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M5 17v3h14v-3"/></svg>
+          Descargar TXT
+        </button>
+        <a class="btn btn-dark" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer" id="open-chatgpt">Abrir ChatGPT ↗</a>
+      </div>
+      <p class="status" id="action-status" role="status" aria-live="polite"></p>
+      <p class="privacy">Esta herramienta prepara el texto en tu navegador. <strong>No analiza el producto automáticamente ni envía el contenido a ChatGPT.</strong> Debes pegarlo en una conversación para iniciar el análisis.</p>
+    </section>
+    <div class="below">
+      <section class="prompt-card" aria-label="Prompt maestro completo">
+        <details id="prompt-details">
+          <summary>Ver el prompt maestro completo</summary>
+          <p class="preview-description">Revisa las fases de auditoría, estrategia SEO, redacción del listing y comprobación final. Tus datos se actualizan al escribir arriba.</p>
+          <div class="prompt-body"><pre id="prompt-preview" tabindex="0"></pre></div>
+        </details>
+      </section>
+      <aside class="howto" aria-labelledby="howto-title">
+        <h3 id="howto-title">Cómo utilizarlo</h3>
+        <div class="step"><span class="number">1</span><p><strong>Describe tu producto.</strong> Pega sus atributos reales, ASIN y keywords disponibles.</p></div>
+        <div class="step"><span class="number">2</span><p><strong>Copia el prompt.</strong> Se integrarán tus datos en la metodología de creación del listing.</p></div>
+        <div class="step"><span class="number">3</span><p><strong>Abre ChatGPT.</strong> Pega el texto y solicita la investigación.</p></div>
+        <div class="step"><span class="number">4</span><p><strong>Verifica antes de publicar.</strong> Confirma atributos, keywords, categoría y reglas actuales de Amazon.</p></div>
+      </aside>
+    </div>
+  </main>
+  <footer class="foot">Ruta Seller · Herramientas educativas para Amazon FBA USA</footer>
+  <script type="text/plain" id="ruta-prompt-master"># PROMPT MAESTRO: CREACIÓN DE LISTADO OPTIMIZADO PARA AMAZON USA
+
+Actúa como especialista en Amazon SEO, investigación de palabras clave, redacción orientada a la conversión y creación de listados de productos físicos para Amazon Estados Unidos.
+
+Tu misión es transformar los datos REALES del producto en un listado claro, convincente y optimizado para búsquedas relevantes, sin inventar características, beneficios, métricas, reseñas ni certificaciones.
+
+## DATOS DEL PRODUCTO A ANALIZAR
+
+**Nombre, ASIN, enlace de Amazon, características verificadas y/o lista de keywords:**
+
+[PEGAR AQUÍ]
+
+Puedes recibir datos como: marca, nombre del producto, material, medidas, peso, color, contenido del paquete, compatibilidades, usos, público objetivo, diferenciaciones verificadas, preguntas frecuentes y keywords exportadas de Helium 10, Data Dive u otra fuente.
+
+Si solo recibes el nombre, ASIN o enlace, comienza con la información que realmente puedas verificar. Si no tienes acceso a internet, no simules que consultaste Amazon ni herramientas externas; identifica los datos pendientes y genera solamente texto que pueda sostenerse con la evidencia disponible. No hagas preguntas adicionales antes de presentar un primer resultado útil.
+
+## FASE 1. AUDITORÍA DE INFORMACIÓN Y EVIDENCIA
+
+1. Separa los datos confirmados del producto de las hipótesis, suposiciones y características desconocidas.
+2. Identifica el problema principal que resuelve, sus usos concretos, sus características diferenciadoras y los beneficios que se pueden demostrar.
+3. Si tienes acceso a internet, revisa el producto y las reglas vigentes aplicables a su categoría en Amazon USA; cita fuentes consultadas cuando corresponda.
+4. Si recibes archivos de keywords, ordénalas según relevancia semántica, intención de búsqueda y relación real con el producto. No atribuyas volumen de búsqueda ni posiciones orgánicas si no están en la información aportada.
+5. Nunca asumas que una keyword popular es relevante si describe otro producto, material, tamaño, público o función.
+
+Antes de redactar, presenta una tabla breve con: Atributo/afirmación | Evidencia disponible | Estado (verificado o pendiente).
+
+## FASE 2. ESTRATEGIA SEO Y MENSAJES DE CONVERSIÓN
+
+1. Define la keyword principal según la función real del producto y los datos aportados.
+2. Propón keywords secundarias y términos long-tail relacionados sin duplicaciones innecesarias.
+3. Relaciona cada beneficio con una característica verificable: CARACTERÍSTICA → BENEFICIO PARA EL CLIENTE → SITUACIÓN DE USO.
+4. Prioriza claridad, lectura natural en inglés estadounidense y adecuación al comprador por encima de repetir keywords.
+5. Identifica cualquier afirmación que requiera pruebas adicionales antes de publicarse.
+
+## FASE 3. REDACTA EL LISTADO EN INGLÉS PARA AMAZON USA
+
+Entrega, en este orden:
+
+**A. AMAZON PRODUCT TITLE**
+Redacta un título en inglés natural, centrado en el producto, la keyword principal y los atributos diferenciales más importantes y verificables. No agregues elementos sin evidencia.
+
+**B. 5 BULLET POINTS**
+Escribe exactamente cinco bullets en inglés. Cada uno debe desarrollar un beneficio diferente, respaldado por una característica real. Incluye contexto de uso cuando agregue claridad. Evita promesas absolutas, repeticiones y relleno de keywords.
+
+**C. PRODUCT DESCRIPTION**
+Redacta una descripción en inglés, clara y persuasiva, que explique qué es el producto, para quién es útil, qué problemas concretos ayuda a resolver y cómo se utiliza. No inventes instrucciones, advertencias ni resultados. Usa texto plano a menos que la categoría permita otro formato.
+
+**D. BACKEND SEARCH TERMS**
+Propón términos de búsqueda relevantes en inglés que complementen el texto visible, sin incorporar nombres de competidores, marcas ajenas, ASINs, términos engañosos ni variaciones irrelevantes. Evita repetir palabras ya utilizadas si no aportan cobertura semántica adicional.
+
+**E. PLAN DE IMÁGENES DEL LISTING**
+Sugiere mensajes para hasta siete imágenes secundarias: objetivo visual, atributo a mostrar y frase corta en inglés. No propongas demostraciones que dependan de funcionalidades no confirmadas.
+
+**F. MAPA DE KEYWORDS**
+Entrega una tabla con las columnas: Keyword | Intención de búsqueda | Ubicación propuesta (Title, Bullet, Description o Backend) | Fuente de la keyword (aportada/verificada/hipótesis).
+
+## FASE 4. AUDITORÍA FINAL
+
+Verifica lo siguiente:
+
+- El título, los bullets y la descripción describen el mismo producto y no se contradicen.
+- Todas las características y afirmaciones importantes tienen respaldo.
+- Las keywords están integradas naturalmente y corresponden al producto real.
+- No se prometen resultados garantizados ni certificaciones no aportadas.
+- No se atribuyen beneficios médicos, de seguridad, ecológicos o de desempeño sin evidencia.
+- No hay lenguaje promocional engañoso, reseñas inventadas, testimonios ficticios, comparaciones no demostradas ni marcas de competidores.
+- Los límites de longitud, el formato y las políticas vigentes de la categoría deben verificarse antes de publicar. No asegures cumplimiento total si no has comprobado las reglas actuales.
+
+## FORMATO FINAL DE ENTREGA
+
+1. Resumen de producto y hechos confirmados.
+2. Estrategia de keywords con justificación.
+3. LISTING READY TO COPY (Title, Bullet Points, Description y Backend Search Terms), cada sección separada.
+4. Plan de imágenes secundarias.
+5. Tabla de keywords.
+6. Lista corta de datos pendientes de verificar antes de publicar.
+
+## REGLAS OBLIGATORIAS
+
+- Nunca inventes características, materiales, medidas, compatibilidades, reseñas, certificaciones, números ni datos de herramientas.
+- No presentes estimaciones de Helium 10 o Data Dive como datos reales si no se proporcionaron o verificaron.
+- Evita keyword stuffing, claims exagerados y expresiones promocionales que no cumplan las reglas aplicables.
+- No uses marcas de terceros para atraer búsquedas indebidas.
+- No incluyas el nombre de Amazon, precios, descuentos ni afirmaciones como “el mejor”, “número 1” o “garantizado” sin una justificación admisible.
+- Si falta información indispensable, utiliza [POR CONFIRMAR] en tu diagnóstico, en lugar de incorporar el dato como si fuera cierto en el listado publicable.
+- Escribe el listado dirigido al consumidor estadounidense en inglés. Explica la estrategia y las verificaciones pendientes en español.
+
+**OBJETIVO FINAL:**
+
+Crear un listado atractivo para Amazon USA que comunique beneficios concretos, use keywords relevantes y se apoye exclusivamente en características reales del producto.
+
+Comienza el trabajo.</script>
+  <script>
+    (() => {
+      'use strict';
+      const productInput = document.getElementById('product-input');
+      const preview = document.getElementById('prompt-preview');
+      const status = document.getElementById('action-status');
+      const fullPrompt = document.getElementById('ruta-prompt-master').textContent.trim();
+      const getReadyPrompt = () => {
+        const product = productInput.value.trim();
+        return product ? fullPrompt.replace('[PEGAR AQUÍ]', product) : fullPrompt;
+      };
+      const updatePreview = () => { preview.textContent = getReadyPrompt(); };
+      const announce = (message, isError = false) => {
+        status.textContent = message;
+        status.dataset.error = String(isError);
+      };
+      productInput.addEventListener('input', () => {
+        updatePreview();
+        announce('');
+      });
+      function fallbackCopy(text) {
+        const temp = document.createElement('textarea');
+        temp.value = text;
+        temp.setAttribute('readonly','');
+        temp.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0;';
+        document.body.appendChild(temp);
+        temp.focus();
+        temp.select();
+        try {
+          return document.execCommand('copy');
+        } finally {
+          temp.remove();
+        }
+      }
+      document.getElementById('copy-prompt').addEventListener('click', async () => {
+        const text = getReadyPrompt();
+        let copied = false;
+        if (navigator.clipboard && window.isSecureContext) {
+          try { await navigator.clipboard.writeText(text); copied = true; } catch (_) {}
+        }
+        if (!copied) {
+          try { copied = fallbackCopy(text); } catch (_) {}
+        }
+        if (copied) {
+          announce(productInput.value.trim() ? '✓ Prompt completo copiado con tu producto. Ahora puedes pegarlo en ChatGPT.' : '✓ Prompt copiado. Recuerda reemplazar [PEGAR AQUÍ] con tu producto.');
+        } else {
+          document.getElementById('prompt-details').open = true;
+          const range = document.createRange();
+          range.selectNodeContents(preview);
+          const selection = window.getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+          announce('No se pudo copiar automáticamente. El texto quedó seleccionado: utiliza Copiar en el menú de tu dispositivo.', true);
+        }
+      });
+      document.getElementById('download-prompt').addEventListener('click', () => {
+        const content = getReadyPrompt();
+        const blob = new Blob(['\ufeff', content], {type:'text/plain;charset=utf-8'});
+        const objectUrl = URL.createObjectURL(blob);
+        const anchor = document.createElement('a');
+        anchor.href = objectUrl;
+        anchor.download = 'Ruta_Seller_Prompt_Creacion_Listado.txt';
+        document.body.appendChild(anchor);
+        anchor.click();
+        anchor.remove();
+        window.setTimeout(() => URL.revokeObjectURL(objectUrl), 2000);
+        announce('✓ Archivo TXT preparado para descargar.');
+      });
+      updatePreview();
+    })();
+  </script>
+</body>
+</html>
